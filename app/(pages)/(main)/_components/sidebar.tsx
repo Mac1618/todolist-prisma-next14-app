@@ -1,4 +1,5 @@
 'use client';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 // Lucide Icons
@@ -8,6 +9,7 @@ import { Lightbulb, PlusCircle, Trash, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Progress } from '@/components/ui/progress';
+import { toast } from 'sonner';
 
 export const Sidebar = () => {
 	const data = [
@@ -35,6 +37,45 @@ export const Sidebar = () => {
 		});
 	}, []);
 
+	// GET all subjects
+	const [subjects, setSubject] = useState([]);
+	const getAllSubject = async () => {
+		const response = await axios.get('/api/subject');
+
+		// Check if there are any subjects
+		if (!response || !response.data.subjects) {
+			return toast.error('No subject found!');
+		}
+
+		console.log(response.data.subjects);
+		return setSubject(response.data.subjects);
+	};
+
+	useEffect(() => {
+		getAllSubject();
+	}, []);
+
+	// POST new subject
+	const [title, setTitle] = useState('');
+	const createSubject = async () => {
+		if (!title) {
+			return toast.error('Subject title is required!');
+		}
+
+		// Data to update
+		const dataaa: any = {
+			title: title,
+		};
+
+		// Put request
+		const response = await axios.post('/api/subject', dataaa);
+
+		// reset
+		setTitle('');
+		console.log(response);
+		return toast.success('Successfully created new subject');
+	};
+
 	return (
 		<section className="relative flex-1 bg-[#252525] text-white py-4  space-y-10">
 			{/* header */}
@@ -51,29 +92,34 @@ export const Sidebar = () => {
 						<input
 							type="text"
 							placeholder="Add new subject"
+							onChange={(e) => {
+								setTitle(e.target.value);
+							}}
+							value={title}
 							className="text-sm text-black h-7 px-2 py-1 rounded-md w-[80%]"
 						/>
-						<PlusCircle className=" h-6 w-6 cursor-pointer" />
+						<PlusCircle className=" h-6 w-6 cursor-pointer" onClick={createSubject} />
 					</li>
-					{data.map((item) => (
-						<li
-							key={item.id}
-							className="p-2 rounded-md text-[#b9b6b6] flex items-center justify-between hover:bg-[#f5c86d] hover:text-muted-foreground hover:text-black"
-						>
-							<p>{item.title}</p>
-							<Popover>
-								<PopoverTrigger>
-									<X className="w-4 h-4" />
-								</PopoverTrigger>
-								<PopoverContent className="w-full p-2" side="right">
-									<div className="flex ">
-										<h4 className="text-[#131313] text-xs mr-3">Delete</h4>
-										<Trash className="w-4 h-4 text-red-500" />
-									</div>
-								</PopoverContent>
-							</Popover>
-						</li>
-					))}
+					{subjects &&
+						subjects.map((item: any) => (
+							<li
+								key={item.id}
+								className="p-2 rounded-md text-[#b9b6b6] flex items-center justify-between hover:bg-[#f5c86d] hover:text-muted-foreground hover:text-black"
+							>
+								<p>{item.title}</p>
+								<Popover>
+									<PopoverTrigger>
+										<X className="w-4 h-4" />
+									</PopoverTrigger>
+									<PopoverContent className="w-full p-2" side="right">
+										<div className="flex ">
+											<h4 className="text-[#131313] text-xs mr-3">Delete</h4>
+											<Trash className="w-4 h-4 text-red-500" />
+										</div>
+									</PopoverContent>
+								</Popover>
+							</li>
+						))}
 				</ul>
 			</div>
 
