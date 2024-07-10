@@ -73,9 +73,30 @@ export const Sidebar = () => {
 		// reset
 		setTitle('');
 		console.log(response);
+		getAllSubject();
 		return toast.success('Successfully created new subject');
 	};
 
+	// DELETE single subject
+	const handleDeleteSubject = async (subjectId: string) => {
+		try {
+			// Prompt the user for confirmation
+			const confirmDelete = window.confirm('Are you sure you want to delete this user?');
+
+			// If user confirms deletion
+			if (confirmDelete) {
+				// Delete Request
+				const response = await axios.delete(`/api/subject/${subjectId}`);
+
+				// Refetch all users
+				console.log('delete: ', response);
+				getAllSubject();
+				return toast.success('User is deleted successfully');
+			}
+		} catch (error: any) {
+			return toast.error('Something went wrong');
+		}
+	};
 	return (
 		<section className="relative flex-1 bg-[#252525] text-white py-4  space-y-10">
 			{/* header */}
@@ -107,17 +128,7 @@ export const Sidebar = () => {
 								className="p-2 rounded-md text-[#b9b6b6] flex items-center justify-between hover:bg-[#f5c86d] hover:text-muted-foreground hover:text-black"
 							>
 								<p>{item.title}</p>
-								<Popover>
-									<PopoverTrigger>
-										<X className="w-4 h-4" />
-									</PopoverTrigger>
-									<PopoverContent className="w-full p-2" side="right">
-										<div className="flex ">
-											<h4 className="text-[#131313] text-xs mr-3">Delete</h4>
-											<Trash className="w-4 h-4 text-red-500" />
-										</div>
-									</PopoverContent>
-								</Popover>
+								<X onClick={() => handleDeleteSubject(item.id)} className="w-4 h-4" />
 							</li>
 						))}
 				</ul>
