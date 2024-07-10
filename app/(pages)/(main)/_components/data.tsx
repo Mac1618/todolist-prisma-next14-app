@@ -25,10 +25,10 @@ export const Data = () => {
 				<div className="w-full h-[80%] flex items-center ">
 					<Popover>
 						<PopoverTrigger className="w-full">
-							<Button className="flex items-center justify-between w-full bg-[#131313]">
+							<div className="p-2 rounded-md flex items-center justify-between w-full hover:bg-muted-foreground bg-[#131313]">
 								<p>Date</p>
 								<CalendarIcon className="w-4 h-4" />
-							</Button>
+							</div>
 						</PopoverTrigger>
 						<PopoverContent>
 							<Calendar

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Lightbulb, PlusCircle, Trash, X } from 'lucide-react';
 
 // Shacn UI component
+import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Progress } from '@/components/ui/progress';
 
@@ -42,10 +43,18 @@ export const Sidebar = () => {
 				<h4 className="text-2xl font-bold text-[#f5c86d]">MERALCO</h4>
 			</div>
 
-			{/* Item List */}
+			{/* Subject List */}
 			<div className="mx-4 text-md">
 				<h4 className="font-semibold mb-2">My Lists</h4>
 				<ul className="space-y-3">
+					<li className="py-2 rounded-md text-[#b9b6b6] flex items-center justify-between">
+						<input
+							type="text"
+							placeholder="Add new subject"
+							className="text-sm text-black h-7 px-2 py-1 rounded-md w-[80%]"
+						/>
+						<PlusCircle className=" h-6 w-6 cursor-pointer" />
+					</li>
 					{data.map((item) => (
 						<li
 							key={item.id}
@@ -65,10 +74,6 @@ export const Sidebar = () => {
 							</Popover>
 						</li>
 					))}
-					<li className="p-2 rounded-md text-[#b9b6b6] flex items-center hover:bg-[#f5c86d] hover:text-muted-foreground hover:text-black">
-						<PlusCircle className="h-6 w-6 mr-3" />
-						<p>Add new list</p>
-					</li>
 				</ul>
 			</div>
 

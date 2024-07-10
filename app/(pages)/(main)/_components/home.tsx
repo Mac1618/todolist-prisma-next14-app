@@ -1,3 +1,5 @@
+'use client';
+
 // Lucide Icons
 import { PlusCircle } from 'lucide-react';
 
