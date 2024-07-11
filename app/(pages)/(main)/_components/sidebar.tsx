@@ -9,23 +9,27 @@ import { Lightbulb, PlusCircle, Trash, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Progress } from '@/components/ui/progress';
+import { cn } from '@/lib/utils';
+
+// Sonner Library
 import { toast } from 'sonner';
 
+// Zustand hooks
+import useSubjectIdStore from '@/store/subjectIdStore';
+
 export const Sidebar = () => {
-	const data = [
-		{
-			id: 1,
-			title: 'Life',
-		},
-		{
-			id: 2,
-			title: 'Work',
-		},
-		{
-			id: 3,
-			title: 'Project',
-		},
-	];
+	// Desctructuromg zustand hooks
+	const { id, updateSubjectId } = useSubjectIdStore((state) => ({
+		id: state.id,
+		updateSubjectId: state.updateSubjectId,
+	}));
+
+	// handles the active button and updating the subjectId
+	const [activeBtn, setActiveBtn] = useState('0');
+	const handleActiveBtn = (id: string) => {
+		updateSubjectId(id);
+		setActiveBtn(id);
+	};
 
 	const [progress, setProgress] = useState(13);
 	useEffect(() => {
@@ -51,6 +55,7 @@ export const Sidebar = () => {
 		return setSubject(response.data.subjects);
 	};
 
+	// Query all subject once
 	useEffect(() => {
 		getAllSubject();
 	}, []);
@@ -107,7 +112,7 @@ export const Sidebar = () => {
 
 			{/* Subject List */}
 			<div className="mx-4 text-md">
-				<h4 className="font-semibold mb-2">My Lists</h4>
+				<h4 className="font-semibold mb-2">My Lists {id}</h4>
 				<ul className="space-y-3">
 					<li className="py-2 rounded-md text-[#b9b6b6] flex items-center justify-between">
 						<input
@@ -125,10 +130,20 @@ export const Sidebar = () => {
 						subjects.map((item: any) => (
 							<li
 								key={item.id}
-								className="p-2 rounded-md text-[#b9b6b6] flex items-center justify-between hover:bg-[#f5c86d] hover:text-muted-foreground hover:text-black"
+								onClick={() => handleActiveBtn(item.id)}
+								className={cn(
+									'p-2 rounded-md  flex items-center justify-between cursor-pointer',
+									activeBtn === item.id && 'bg-[#f5c86d] text-black'
+								)}
 							>
 								<p>{item.title}</p>
-								<X onClick={() => handleDeleteSubject(item.id)} className="w-4 h-4" />
+								<X
+									onClick={(e) => {
+										e.stopPropagation();
+										handleDeleteSubject(item.id);
+									}}
+									className="w-4 h-4"
+								/>
 							</li>
 						))}
 				</ul>

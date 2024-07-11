@@ -38,30 +38,3 @@ export const GET = async () => {
 		success: true,
 	});
 };
-
-// DELETE SINGLE SUBJECT
-export const DELETE = async (req: NextRequest) => {
-	const reqBody = await req.json();
-	const { id } = reqBody;
-
-	// Check the id value
-	if (!id) {
-		throw new Error('Select subject to be deleted!');
-	}
-
-	// Delete request
-	const subject = await prisma.subject.delete({
-		where: {
-			id: id,
-		},
-	});
-
-	// Console
-	console.log(subject);
-
-	// Next response
-	return NextResponse.json({
-		subject: subject,
-		success: true,
-	});
-};
