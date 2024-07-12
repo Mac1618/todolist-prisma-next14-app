@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 // Lucide Icons
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, X } from 'lucide-react';
 import { toast } from 'sonner';
 
 // Zustand hooks
@@ -54,12 +54,18 @@ export const Home = () => {
 
 			// success message
 			console.log(response);
+			handleGetList();
+
 			return toast.success('New list is successfully created');
 
 			// error message
 		} catch (error) {
 			console.log(error);
 			return toast.error('Something went wrong. Please try again!');
+
+			// happens every request
+		} finally {
+			setList('');
 		}
 	};
 
@@ -84,6 +90,27 @@ export const Home = () => {
 		} catch (error) {
 			console.log(error);
 			return toast.error('Something went wrong. Please try again!');
+		}
+	};
+
+	// DELETE single List
+	const handleDelete = async (listId: string) => {
+		try {
+			// Check listId value
+			if (listId === '') {
+				return toast.error('Select a list to delete. Please try again!');
+			}
+
+			// Delete request
+			const reponse = await axios.delete(`/api/list/${listId}`);
+
+			// success message
+			console.log('Delete list: ', reponse);
+			return toast.success('Deleted successfully');
+
+			// error message
+		} catch (error) {
+			return toast.error('Failed to delete the list. Please try again!');
 		}
 	};
 
@@ -159,8 +186,12 @@ export const Home = () => {
 				{/* map all list */}
 				{allLists &&
 					allLists.map((li: any) => (
-						<h1 key={li.id} className="text-md text-[#b9b6b6] w-full p-3 rounded-md bg-[#252525]">
-							{li.title}
+						<h1
+							key={li.id}
+							className="flex justify-between items-center text-md text-[#b9b6b6] w-full p-3 rounded-md bg-[#252525]"
+						>
+							<p>{li.title}</p>
+							<X className="h-4 w-4 hover:text-white" />
 						</h1>
 					))}
 			</div>

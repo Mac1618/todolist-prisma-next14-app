@@ -53,23 +53,23 @@ export const Data = () => {
 				</div>
 				{/* content */}
 				<ul className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-					<li className="w-auto text-center">
-						<Button size="sm" className="bg-gray-500">
+					<li className="w-full text-center">
+						<Button size="sm" className="w-full bg-gray-500">
 							None
 						</Button>
 					</li>
-					<li className="w-auto text-center">
-						<Button size="sm" className="bg-blue-500">
+					<li className="w-full text-center">
+						<Button size="sm" className="w-full bg-blue-500">
 							Priority
 						</Button>
 					</li>
-					<li className="w-auto text-center">
-						<Button size="sm" className="bg-orange-500">
+					<li className="w-full text-center">
+						<Button size="sm" className="w-full bg-orange-500">
 							Name
 						</Button>
 					</li>
-					<li className="w-auto text-center">
-						<Button size="sm" className="bg-green-500">
+					<li className="w-full text-center">
+						<Button size="sm" className="w-full bg-green-500">
 							Date
 						</Button>
 					</li>
