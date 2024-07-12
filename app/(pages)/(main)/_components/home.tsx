@@ -96,18 +96,24 @@ export const Home = () => {
 	// DELETE single List
 	const handleDelete = async (listId: string) => {
 		try {
-			// Check listId value
-			if (listId === '') {
-				return toast.error('Select a list to delete. Please try again!');
+			// Prompt the user for confirmation
+			const confirmDelete = window.confirm('Are you sure you want to delete this list?');
+
+			// If user confirms deletion
+			if (confirmDelete) {
+				// Check listId value
+				if (listId === '') {
+					return toast.error('Select a list to delete. Please try again!');
+				}
+
+				// Delete request
+				const reponse = await axios.delete(`/api/list/${listId}`);
+
+				// success message
+				console.log('Delete list: ', reponse);
+				handleGetList();
+				return toast.success('Deleted successfully');
 			}
-
-			// Delete request
-			const reponse = await axios.delete(`/api/list/${listId}`);
-
-			// success message
-			console.log('Delete list: ', reponse);
-			return toast.success('Deleted successfully');
-
 			// error message
 		} catch (error) {
 			return toast.error('Failed to delete the list. Please try again!');
@@ -191,7 +197,7 @@ export const Home = () => {
 							className="flex justify-between items-center text-md text-[#b9b6b6] w-full p-3 rounded-md bg-[#252525]"
 						>
 							<p>{li.title}</p>
-							<X className="h-4 w-4 hover:text-white" />
+							<X onClick={() => handleDelete(li.id)} className="h-4 w-4 hover:text-white" />
 						</h1>
 					))}
 			</div>

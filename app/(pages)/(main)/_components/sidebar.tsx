@@ -86,7 +86,7 @@ export const Sidebar = () => {
 	const handleDeleteSubject = async (subjectId: string) => {
 		try {
 			// Prompt the user for confirmation
-			const confirmDelete = window.confirm('Are you sure you want to delete this user?');
+			const confirmDelete = window.confirm('Are you sure you want to delete this subject?');
 
 			// If user confirms deletion
 			if (confirmDelete) {
