@@ -9,7 +9,7 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
 	const subjectId = params.id;
 
 	if (!subjectId) {
-		return new Error('No subject field found. Please select your subject first.');
+		throw new Error('No subject field found. Please select your subject first.');
 	}
 
 	// Query all list
@@ -29,7 +29,7 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
 	const listId = params.id;
 
 	if (!listId) {
-		return new Error('No selected list field found. Please try again!');
+		throw new Error('No selected list field found. Please try again!');
 	}
 
 	// Delete request

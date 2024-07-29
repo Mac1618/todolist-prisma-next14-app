@@ -16,9 +16,6 @@ export const POST = async (req: NextRequest) => {
 		},
 	});
 
-	// console
-	console.log(subject);
-
 	// next response
 	return NextResponse.json({
 		message: 'New subject is created!',

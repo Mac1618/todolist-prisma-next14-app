@@ -13,17 +13,12 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
 		throw new Error('Select subject to be deleted!');
 	}
 
-	console.log('deleteID: ', subjectId);
-
 	// Delete request
 	const subject = await prisma.subject.delete({
 		where: {
 			id: parseInt(subjectId),
 		},
 	});
-
-	// Console
-	console.log(subject);
 
 	// Next response
 	return NextResponse.json({

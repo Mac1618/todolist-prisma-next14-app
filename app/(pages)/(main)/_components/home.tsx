@@ -53,14 +53,13 @@ export const Home = () => {
 			const response = await axios.post('/api/list', data);
 
 			// success message
-			console.log(response);
+
 			handleGetList();
 
 			return toast.success('New list is successfully created');
 
 			// error message
 		} catch (error) {
-			console.log(error);
 			return toast.error('Something went wrong. Please try again!');
 
 			// happens every request
@@ -83,12 +82,10 @@ export const Home = () => {
 			setAllLists(response.data.lists);
 
 			// success message
-			console.log('LIST DATA: ', response.data.lists);
 			return toast.success('New lists are being shown');
 
 			// error message
 		} catch (error) {
-			console.log(error);
 			return toast.error('Something went wrong. Please try again!');
 		}
 	};
@@ -110,7 +107,6 @@ export const Home = () => {
 				const reponse = await axios.delete(`/api/list/${listId}`);
 
 				// success message
-				console.log('Delete list: ', reponse);
 				handleGetList();
 				return toast.success('Deleted successfully');
 			}
@@ -124,7 +120,7 @@ export const Home = () => {
 		if (id !== '0') {
 			handleGetList();
 		}
-	}, [id]);
+	}, [id, handleGetList]);
 
 	return (
 		<section className="flex-[3] bg-[#131313] ">
@@ -133,7 +129,7 @@ export const Home = () => {
 				<h1 className="flex text-3xl font-semibold text-[#e2e4e2]">
 					Hello <span className="ml-1.5 font-bold text-[#f5c86d]">Andrew Tate!</span>
 				</h1>
-				<h1 className="ml-5 text-3xl font-semibold text-[#929092]">What's your plan today?</h1>
+				<h1 className="ml-5 text-3xl font-semibold text-[#929092]">What&apos;s your plan today?</h1>
 			</div>
 
 			{/* Content */}

@@ -51,7 +51,6 @@ export const Sidebar = () => {
 			return toast.error('No subject found!');
 		}
 
-		console.log(response.data.subjects);
 		return setSubject(response.data.subjects);
 	};
 
@@ -77,7 +76,6 @@ export const Sidebar = () => {
 
 		// reset
 		setTitle('');
-		console.log(response);
 		getAllSubject();
 		return toast.success('Successfully created new subject');
 	};
@@ -94,7 +92,6 @@ export const Sidebar = () => {
 				const response = await axios.delete(`/api/subject/${subjectId}`);
 
 				// Refetch all users
-				console.log('delete: ', response);
 				getAllSubject();
 				return toast.success('User is deleted successfully');
 			}
@@ -102,6 +99,7 @@ export const Sidebar = () => {
 			return toast.error('Something went wrong');
 		}
 	};
+	
 	return (
 		<section className="relative flex-1 bg-[#252525] text-white py-4  space-y-10">
 			{/* header */}
