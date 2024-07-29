@@ -120,7 +120,7 @@ export const Home = () => {
 		if (id !== '0') {
 			handleGetList();
 		}
-	}, [id, handleGetList]);
+	}, [id]);
 
 	return (
 		<section className="flex-[3] bg-[#131313] ">
