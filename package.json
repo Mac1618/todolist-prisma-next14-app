@@ -4,13 +4,12 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"postinstall": "prisma generate",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@prisma/client": "^5.16.2",
+		"@prisma/client": "^5.17.0",
 		"@radix-ui/react-dialog": "^1.1.1",
 		"@radix-ui/react-popover": "^1.1.1",
 		"@radix-ui/react-progress": "^1.1.0",
